@@ -6,9 +6,13 @@ import app from './app.js';
 import { env } from './config/env.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const staticDir = path.resolve(__dirname, '../public');
+const staticDirCandidates = [
+  path.resolve(__dirname, '../public'),
+  path.resolve(__dirname, '../../../dist')
+];
+const staticDir = staticDirCandidates.find((candidate) => fs.existsSync(path.join(candidate, 'index.html')));
 
-if (fs.existsSync(staticDir)) {
+if (staticDir) {
   app.use(express.static(staticDir));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path === '/health') return next();
