@@ -7,8 +7,9 @@ import { env } from './config/env.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const staticDirCandidates = [
+  path.resolve(process.cwd(), 'dist'),
   path.resolve(__dirname, '../public'),
-  path.resolve(__dirname, '../../../dist')
+  path.resolve(__dirname, '../../dist')
 ];
 const staticDir = staticDirCandidates.find((candidate) => fs.existsSync(path.join(candidate, 'index.html')));
 
