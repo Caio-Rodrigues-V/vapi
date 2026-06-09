@@ -4,5 +4,5 @@ import ws from 'ws';
 
 export const supabaseAdmin = createClient(env.supabaseUrl, env.supabaseServiceRoleKey, {
   auth: { persistSession: false },
-  realtime: { transport: ws }
+  realtime: { transport: ws as any }
 });
